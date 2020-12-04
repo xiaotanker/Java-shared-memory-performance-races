@@ -25,14 +25,16 @@ public class BetterSafe implements State{
 
     @Override
     public boolean swap(int i, int j) {
-        lock.lock();
-        if (value[i] <= 0 || value[j] >= maxval) {
+        try {
+            lock.lock();
+            if (value[i] <= 0 || value[j] >= maxval) {
+                return false;
+            }
+            value[i]--;
+            value[j]++;
+            return true;
+        }finally {
             lock.unlock();
-            return false;
         }
-        value[i]--;
-        value[j]++;
-        lock.unlock();
-        return true;
     }
 }
