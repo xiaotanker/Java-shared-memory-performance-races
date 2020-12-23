@@ -1,7 +1,7 @@
 import java.util.concurrent.atomic.AtomicIntegerArray;
 
 public class GetNSet implements State {
-    AtomicIntegerArray value;
+    private AtomicIntegerArray value;
     private byte maxval;
     GetNSet(byte[] v) {
         value = new AtomicIntegerArray( v.length);
@@ -38,8 +38,8 @@ public class GetNSet implements State {
         if (value.get(i)<= 0 || value.get(j) >= maxval) {
             return false;
         }
-        value.set(i,value.get(i)+1);
-        value.set(j,value.get(j)-1);
+        value.set(i,value.get(i)-1);
+        value.set(j,value.get(j)+1);
         return true;
     }
 
